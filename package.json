@@ -1,0 +1,27 @@
+{
+    "packageManager": "pnpm@8.6.1",
+    "devDependencies": {
+      "@synthetixio/synpress": "3.7.1",
+      "cypress": "12.14.0",
+      "env-cmd": "10.1.0",
+      "ethers": "5.0.0",
+      "mochawesome": "6.3.1",
+      "mochawesome-merge": "4.0.3",
+      "mochawesome-report-generator": "5.1.0"
+    },
+    "scripts": {
+      "cypress:run:chrome": "env-cmd cypress run --browser chrome --headed",
+      "cypress:run:edge": "env-cmd cypress run --browser edge --headed",
+      "cypress:run:firefox": "env-cmd cypress run --browser brave --headed",
+      "clean:reports": "rm -R -f cypress/reports && mkdir cypress/reports && mkdir cypress/reports/mochareports",
+      "pretest": "npm run clean:reports",
+      "combine-reports": "mochawesome-merge cypress/mochawesome-report/*.json > cypress/mochawesome-report/output.json",
+      "generate-HTML-report": "marge cypress/mochawesome-report/output.json --reportDir ./ --inline",
+      "posttest": "npm run combine-reports && npm run generate-HTML-report",
+      "test": "npm run scripts || npm run posttest"
+    },
+    "dependencies": {
+      "@testing-library/cypress": "^9.0.0"
+    }
+  }
+  
